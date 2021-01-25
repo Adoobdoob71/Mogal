@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--    main colors    -->
+    <color name="colorPrimary">#9900ff</color>
+    <color name="colorPrimaryDark">#6000a1</color>
+    <color name="colorAccent">#f6ff45</color>
+    <color name="colorTextOnPrimary">#FFF</color>
+    <color name="colorPlaceholder">#858585</color>
+    <color name="colorLike">#CF0000</color>
+
+    <!--     light theme colors    -->
+    <color name="colorTabLight">#FFF</color>
+    <color name="colorTextLight">#000</color>
+    <color name="colorBackgroundLight">#FAFAFA</color>
+    <color name="colorDividerLight">#959595</color>
+    <color name="colorCardLight">#FFF</color>
+
+    <!--     dark theme colors    -->
+    <color name="colorTabDark">#303030</color>
+    <color name="colorTextDark">#FFF</color>
+    <color name="colorBackgroundDark">#151515</color>
+    <color name="colorDividerDark">#454545</color>
+    <color name="colorCardDark">#202020</color>
+
+
+</resources>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Mogal</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="greeting">Hello,</string>
+    <string name="rating10">/10</string>
+    <string name="said">said: </string>
+</resources>

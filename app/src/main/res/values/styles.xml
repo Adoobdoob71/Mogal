@@ -1,0 +1,27 @@
+<resources>
+    <!-- Light application theme. -->
+    <style name="AppThemeLight" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorTab">@color/colorTabLight</item>
+        <item name="colorText">@color/colorTextLight</item>
+        <item name="colorBackground">@color/colorBackgroundLight</item>
+        <item name="colorTextOnPrimary">@color/colorTextOnPrimary</item>
+        <item name="colorDivider">@color/colorDividerLight</item>
+        <item name="colorCard">@color/colorCardLight</item>
+    </style>
+
+    <!-- Dark application theme. -->
+    <style name="AppThemeDark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorTab">@color/colorTabDark</item>
+        <item name="colorText">@color/colorTextDark</item>
+        <item name="colorBackground">@color/colorBackgroundDark</item>
+        <item name="colorTextOnPrimary">@color/colorTextOnPrimary</item>
+        <item name="colorDivider">@color/colorDividerDark</item>
+        <item name="colorCard">@color/colorCardDark</item>
+    </style>
+</resources>
