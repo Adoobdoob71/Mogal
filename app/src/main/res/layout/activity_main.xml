@@ -14,13 +14,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="?attr/colorTab">
+        android:background="?attr/colorTab"
+        app:liftOnScroll="true">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:padding="12dp">
+            android:padding="12dp"
+            app:layout_scrollFlags="scroll|enterAlways|snap">
             <androidx.cardview.widget.CardView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -39,7 +41,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/search_bar_background"
                 android:gravity="center_vertical"
-                android:padding="6dp">
+                android:padding="10dp">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -74,4 +76,6 @@
             android:layout_height="match_parent"
             android:id="@+id/activity_main_recycler_view" />
     </androidx.core.widget.NestedScrollView>
+
+    <!--TODO: Put Bottom Navigation here-->
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -16,11 +16,11 @@
     <color name="colorCardLight">#F5F5F5</color>
 
     <!--     dark theme colors    -->
-    <color name="colorTabDark">#282828</color>
+    <color name="colorTabDark">#181818</color>
     <color name="colorTextDark">#FFF</color>
     <color name="colorBackgroundDark">#151515</color>
-    <color name="colorDividerDark">#232323</color>
-    <color name="colorCardDark">#202020</color>
+    <color name="colorDividerDark">#252525</color>
+    <color name="colorCardDark">#222222</color>
 
 
 </resources>
