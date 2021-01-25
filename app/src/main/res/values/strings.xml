@@ -4,4 +4,5 @@
     <string name="greeting">Hello,</string>
     <string name="rating10">/10</string>
     <string name="said">said: </string>
+    <string name="search_something">Search something</string>
 </resources>
