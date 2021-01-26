@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ReviewsFragment"
+    tools:context=".MoviesFragment"
     android:background="?attr/colorBackground">
 
 
@@ -75,7 +75,7 @@
         <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/fragment_reviews_list_view" />
+            android:id="@+id/fragment_movies_list_view"/>
     </androidx.core.widget.NestedScrollView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

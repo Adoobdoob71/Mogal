@@ -10,4 +10,19 @@
         android:name="com.mogal.ReviewsFragment"
         android:label="fragment_reviews"
         tools:layout="@layout/fragment_reviews" />
+    <fragment
+        android:id="@+id/moviesFragment"
+        android:name="com.mogal.MoviesFragment"
+        android:label="fragment_movies"
+        tools:layout="@layout/fragment_movies" />
+    <fragment
+        android:id="@+id/contactsFragment"
+        android:name="com.mogal.ContactsFragment"
+        android:label="fragment_contacts"
+        tools:layout="@layout/fragment_contacts" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.mogal.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

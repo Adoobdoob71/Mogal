@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1050796024934",
+    "firebase_url": "https://mogal-f4429-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "mogal-f4429",
+    "storage_bucket": "mogal-f4429.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1050796024934:android:c3d2d440b6e9155c07f9a7",
+        "android_client_info": {
+          "package_name": "com.mogal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1050796024934-hdjgmicg2rbempfv8bdj7rmv91lkgob6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsOATyVD01s_8h8Xr7zzUszFoidNBHwAE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1050796024934-hdjgmicg2rbempfv8bdj7rmv91lkgob6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:id="@+id/comment_item_info"
+            android:id="@+id/review_item_info"
             android:gravity="center_vertical"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -27,44 +27,46 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/EM_Second_Version"
-                    android:id="@+id/comment_item_profile_picture"/>
+                    android:src="@drawable/picture"
+                    android:id="@+id/review_item_profile_picture"/>
             </androidx.cardview.widget.CardView>
+
             <TextView
+                android:id="@+id/review_item_nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/comment_item_nickname"
-                android:textSize="18sp"
-                android:text="DotWiz"
                 android:layout_marginEnd="8dp"
+                android:text="DotWiz"
                 android:textColor="?attr/colorText"
-                android:textStyle="bold"/>
+                android:textSize="16sp"
+                android:textStyle="bold" />
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
 
             <TextView
-                android:id="@+id/comment_item_timestamp"
+                android:id="@+id/review_item_timestamp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2 weeks ago"
                 android:textColor="@color/colorPlaceholder"
                 android:textSize="12sp" />
         </LinearLayout>
+
         <TextView
+            android:id="@+id/review_item_body"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/comment_item_body"
             android:layout_marginTop="10dp"
-            android:textSize="14sp"
-            android:textColor="?attr/colorText"
-            android:textStyle="italic"
-            android:lines="2"
             android:ellipsize="end"
+            android:maxLines="3"
             android:text="I really like this movie Inception, you should totally watch that movie"
+            android:textColor="?attr/colorText"
+            android:textSize="14sp"
+            android:textStyle="italic"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/comment_item_info"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/review_item_info" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

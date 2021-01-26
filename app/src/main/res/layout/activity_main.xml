@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,75 +7,26 @@
     tools:context=".MainActivity"
     android:background="?attr/colorBackground">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/activity_main_header"
+        android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="?attr/colorTab"
-        app:liftOnScroll="true">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="12dp"
-            app:layout_scrollFlags="scroll|enterAlways|snap">
-            <androidx.cardview.widget.CardView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                app:cardCornerRadius="20dp">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/EM_Second_Version"
-                    android:id="@+id/activity_main_profile_picture"
-                    android:contentDescription="@string/profile_picture" />
-            </androidx.cardview.widget.CardView>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="12dp"
-                android:layout_weight="1"
-                android:background="@drawable/search_bar_background"
-                android:gravity="center_vertical"
-                android:padding="10dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/search"
-                    app:tint="@color/colorPlaceholder" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="@string/search_something"
-                    android:textColor="@color/colorPlaceholder"
-                    android:textSize="14sp" />
-            </LinearLayout>
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/more_vert"
-                android:tint="?attr/colorText"/>
-        </LinearLayout>
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.core.widget.NestedScrollView
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/activity_main_recycler_view" />
-    </androidx.core.widget.NestedScrollView>
-
-    <!--TODO: Put Bottom Navigation here-->
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        android:layout_height="wrap_content"
+        android:id="@+id/activity_main_bottom_navigation_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_navigation_view_menu"
+        android:background="@drawable/bottom_navigation_view_background"
+        android:layout_margin="8dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
