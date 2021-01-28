@@ -27,6 +27,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_navigation_view_menu"
+        app:labelVisibilityMode="unlabeled"
         android:background="@drawable/bottom_navigation_view_background"
         android:layout_margin="8dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

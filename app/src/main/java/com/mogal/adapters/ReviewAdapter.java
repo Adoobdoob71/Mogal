@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 
 import com.mogal.R;
 import com.mogal.classes.Review;
+import com.mogal.utils.ImageHandler;
 import com.mogal.utils.UsefulMethods;
 
 import java.util.Date;
@@ -32,17 +33,15 @@ public class ReviewAdapter extends ArrayAdapter<Review> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.review_item, parent, false);
         }
         Review review = getItem(position);
-        //New instance of image handler
-        //ImageHandler imageHandler = new ImageHandler();
-        ImageView imageView = convertView.findViewById(R.id.review_item_profile_picture);
-        //imageHandler.setImageView(imageView);
-        //imageHandler.start();
         TextView nickname = convertView.findViewById(R.id.review_item_nickname);
         TextView timestamp = convertView.findViewById(R.id.review_item_timestamp);
         TextView body = convertView.findViewById(R.id.review_item_body);
+        ImageView imageView = convertView.findViewById(R.id.review_item_profile_picture);
         nickname.setText(review.getNickname());
         timestamp.setText(UsefulMethods.calculateTimestamp(review.getTime(), new Date()));
         body.setText(review.getBody());
+        ImageHandler imageHandler = new ImageHandler(imageView, review.getProfile_picture());
+        imageHandler.start();
         return convertView;
     }
 }

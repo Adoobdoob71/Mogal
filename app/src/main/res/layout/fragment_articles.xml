@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".MoviesFragment"
+    tools:context=".ArticlesFragment"
     android:background="?attr/colorBackground">
-
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/activity_main_header"
+        android:id="@+id/fragment_articles_header"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -32,10 +31,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/picture"
-                    android:id="@+id/activity_main_profile_picture"
+                    android:id="@+id/fragment_articles_profile_picture"
                     android:contentDescription="@string/profile_picture" />
             </androidx.cardview.widget.CardView>
+
             <LinearLayout
+                android:id="@+id/fragment_articles_search_bar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="12dp"
@@ -58,12 +59,14 @@
                     android:textColor="@color/colorPlaceholder"
                     android:textSize="14sp" />
             </LinearLayout>
+
             <ImageButton
+                android:id="@+id/fragment_articles_menu_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/more_vert"
-                android:tint="?attr/colorText"/>
+                android:tint="?attr/colorText" />
         </LinearLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -75,7 +78,7 @@
         <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/fragment_movies_list_view"/>
+            android:id="@+id/fragment_articles_list_view" />
     </androidx.core.widget.NestedScrollView>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</FrameLayout>

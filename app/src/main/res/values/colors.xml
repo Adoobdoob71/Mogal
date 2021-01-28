@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--    main colors    -->
-    <color name="colorPrimary">#CE93D8</color>
-    <color name="colorPrimaryDark">#906797</color>
-    <color name="colorAccent">#4BFF8C</color>
+    <color name="colorPrimary">#2DFF30</color>
+    <color name="colorPrimaryDark">#1DAA1F</color>
+    <color name="colorAccent">#2DFF49</color>
     <color name="colorTextOnPrimary">#FFF</color>
     <color name="colorPlaceholder">#858585</color>
-    <color name="colorLike">#CF0000</color>
+    <color name="colorLike">#E12525</color>
 
     <!--     light theme colors    -->
     <color name="colorTabLight">#FFF</color>

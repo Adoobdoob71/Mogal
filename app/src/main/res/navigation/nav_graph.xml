@@ -11,11 +11,6 @@
         android:label="fragment_reviews"
         tools:layout="@layout/fragment_reviews" />
     <fragment
-        android:id="@+id/moviesFragment"
-        android:name="com.mogal.MoviesFragment"
-        android:label="fragment_movies"
-        tools:layout="@layout/fragment_movies" />
-    <fragment
         android:id="@+id/contactsFragment"
         android:name="com.mogal.ContactsFragment"
         android:label="fragment_contacts"
@@ -25,4 +20,9 @@
         android:name="com.mogal.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/articlesFragment"
+        android:name="com.mogal.ArticlesFragment"
+        android:label="fragment_articles"
+        tools:layout="@layout/fragment_articles" />
 </navigation>

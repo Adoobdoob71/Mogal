@@ -7,14 +7,14 @@ public class User {
     private String profile_picture;
     private boolean online;
     private String uid;
-    private Date joinedAt;
+    private Date joinedOn;
 
-    public User(String nickname, String profile_picture, boolean online, String uid, Date joinedAt) {
+    public User(String nickname, String profile_picture, boolean online, String uid, Date joinedOn) {
         this.nickname = nickname;
         this.profile_picture = profile_picture;
         this.online = online;
         this.uid = uid;
-        this.joinedAt = joinedAt;
+        this.joinedOn = joinedOn;
     }
 
     public User() {}
@@ -51,11 +51,11 @@ public class User {
         this.uid = uid;
     }
 
-    public Date getJoinedAt() {
-        return joinedAt;
+    public Date getJoinedOn() {
+        return joinedOn;
     }
 
-    public void setJoinedAt(Date joinedAt) {
-        this.joinedAt = joinedAt;
+    public void setJoinedOn(Date joinedOn) {
+        this.joinedOn = joinedOn;
     }
 }

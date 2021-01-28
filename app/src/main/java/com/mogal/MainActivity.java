@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch(item.getItemId()){
                     case R.id.bottom_navigation_view_menu_home_item:
-                        navController.navigate(R.id.moviesFragment, null, navBuilder.build());
+                        navController.navigate(R.id.articlesFragment, null, navBuilder.build());
                         break;
                     case R.id.bottom_navigation_view_menu_reviews_item:
                         navController.navigate(R.id.reviewsFragment, null, navBuilder.build());
