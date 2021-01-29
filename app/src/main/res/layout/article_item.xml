@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:backgroundTint="?attr/colorCard"
-    android:elevation="2dp"
+    app:cardElevation="0dp"
     app:cardCornerRadius="8dp">
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,7 +33,6 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/article_item_title"
                     android:textSize="21sp"
-                    android:text="Inception"
                     android:lines="1"
                     android:ellipsize="end"
                     android:textColor="?attr/colorText"
@@ -59,7 +58,6 @@
                 android:layout_marginTop="6dp"
                 android:ellipsize="end"
                 android:maxLines="3"
-                android:text="Great movie, must watch, nothing else to say."
                 android:textColor="?attr/colorText"
                 android:textSize="16sp"
                 android:textStyle="italic" />
@@ -70,8 +68,7 @@
                 android:id="@+id/article_item_timestamp"
                 android:textSize="10sp"
                 android:textColor="@color/colorPlaceholder"
-                android:layout_gravity="end"
-                android:text="3 mins ago"/>
+                android:layout_gravity="end"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -96,7 +93,6 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/article_item_poster_nickname"
                     android:textSize="12sp"
-                    android:text="DotWiz71"
                     android:textColor="?attr/colorText"
                     android:textStyle="bold"
                     android:layout_marginStart="10dp"/>

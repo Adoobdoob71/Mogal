@@ -27,6 +27,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                app:cardElevation="0dp"
                 app:cardCornerRadius="20dp">
                 <ImageView
                     android:layout_width="match_parent"
@@ -63,6 +64,7 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/more_vert"
+                android:contentDescription="@string/menu"
                 android:tint="?attr/colorText"/>
         </LinearLayout>
 

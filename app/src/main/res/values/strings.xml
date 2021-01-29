@@ -10,4 +10,6 @@
     <string name="home">Home</string>
     <string name="contacts">Contacts</string>
     <string name="profile">Profile</string>
+    <string name="menu">Menu</string>
+    <string name="articles">Articles</string>
 </resources>
