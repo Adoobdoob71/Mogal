@@ -2,7 +2,6 @@ package com.mogal.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Movie;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +37,7 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
 
         Article article = getItem(position);
         TextView movie_title = convertView.findViewById(R.id.article_item_title);
-        TextView movie_description = convertView.findViewById(R.id.article_item_description);
+        TextView movie_body = convertView.findViewById(R.id.article_item_body);
         TextView timestamp = convertView.findViewById(R.id.article_item_timestamp);
         TextView poster_nickname = convertView.findViewById(R.id.article_item_poster_nickname);
         ImageView movie_picture = convertView.findViewById(R.id.article_item_image_view);
@@ -47,13 +46,13 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
         MaterialCheckBox like_button = convertView.findViewById(R.id.article_item_like_button);
 
         movie_title.setText(article.getName());
-        movie_description.setText(article.getDescription());
+        movie_body.setText(article.getBody());
         timestamp.setText(UsefulMethods.calculateTimestamp(article.getTime(), new Date()));
-        poster_nickname.setText(article.getPoster().getNickname());
+//        poster_nickname.setText();
         ImageHandler movie_picture_handler = new ImageHandler(movie_picture, article.getPicture());
-        ImageHandler poster_profile_handler = new ImageHandler(poster_profile_picture, article.getPoster().getProfile_picture());
+//        ImageHandler poster_profile_handler = new ImageHandler(poster_profile_picture, article.getPoster().getProfile_picture());
         movie_picture_handler.start();
-        poster_profile_handler.start();
+//        poster_profile_handler.start();
         handleEvents(read_more_button, like_button, article);
         return convertView;
     }

@@ -37,6 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
+                android:text="DotWiz"
                 android:textColor="?attr/colorText"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -49,6 +50,7 @@
                 android:id="@+id/review_item_timestamp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="24m ago"
                 android:textColor="@color/colorPlaceholder"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -61,6 +63,7 @@
             android:ellipsize="end"
             android:maxLines="3"
             android:textColor="?attr/colorText"
+            android:text="I've just watched Prestige and it's amazing!"
             android:textSize="14sp"
             android:textStyle="italic"
             app:layout_constraintEnd_toEndOf="parent"

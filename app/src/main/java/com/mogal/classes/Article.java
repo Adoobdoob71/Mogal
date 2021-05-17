@@ -5,17 +5,17 @@ import java.util.Date;
 public class Article {
 
     private String name;
-    private String description;
+    private String body;
     private String picture;
-    private User poster;
+    private String posterUID;
     private String ID;
     private Date time;
 
-    public Article(String name, String description, String picture, User poster, String ID, Date time){
+    public Article(String name, String body, String picture, String posterUID, String ID, Date time){
         this.name = name;
-        this.description = description;
+        this.body = body;
         this.picture = picture;
-        this.poster = poster;
+        this.posterUID = posterUID;
         this.ID = ID;
         this.time = time;
     }
@@ -30,12 +30,12 @@ public class Article {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getBody() {
+        return body;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setBody(String body) {
+        this.body = body;
     }
 
     public String getPicture() {
@@ -46,12 +46,12 @@ public class Article {
         this.picture = picture;
     }
 
-    public User getPoster() {
-        return poster;
+    public String getPosterUID() {
+        return posterUID;
     }
 
-    public void setPoster(User poster) {
-        this.poster = poster;
+    public void setPoster(String posterUID) {
+        this.posterUID = posterUID;
     }
 
     public String getID() {

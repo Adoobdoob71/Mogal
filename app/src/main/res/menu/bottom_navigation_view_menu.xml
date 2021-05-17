@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/bottom_navigation_view_menu_home_item" android:icon="@drawable/movie" android:title="@string/home" />
-    <item  android:id="@+id/bottom_navigation_view_menu_reviews_item"  android:icon="@drawable/comment" android:title="@string/reviews"/>
-    <item android:id="@+id/bottom_navigation_view_menu_contacts_item" android:icon="@drawable/people" android:title="@string/contacts" />
-    <item android:id="@+id/bottom_navigation_view_menu_profile_item" android:icon="@drawable/person" android:title="@string/profile" />
-</menu>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorBackground"
+    tools:context=".ProfileActivity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/activity_profile_app_bar"
+        app:liftOnScroll="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/activity_profile_user_background"
+            android:gravity="center_vertical"
+            android:padding="32dp"
+            android:background="@drawable/picture"
+            app:layout_scrollFlags="scroll|enterAlways|snap">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                android:elevation="18dp"
+                android:gravity="center_vertical"
+                android:background="@drawable/hovering_card_background">
+                <androidx.cardview.widget.CardView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    app:cardElevation="0dp"
+                    app:cardCornerRadius="32dp">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/picture"
+                        android:id="@+id/activity_profile_user_picture"/>
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="12dp"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/activity_profile_nickname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:lines="1"
+                        android:text="DotWiz"
+                        android:textColor="?attr/colorText"
+                        android:textSize="21sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/activity_profile_joined_on"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:lines="1"
+                        android:text="Joined on  18/3"
+                        android:textColor="?attr/colorText"
+                        android:textSize="16sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/edit"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:tint="?attr/colorText"
+                    android:layout_gravity="start"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:elevation="18dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/hovering_card_background">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/articles"
+                        android:textSize="16sp"
+                        android:lines="1"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorText"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:lines="1"
+                        android:text="12"
+                        android:textSize="14sp"
+                        android:textColor="?attr/colorText"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/reviews"
+                        android:textSize="16sp"
+                        android:lines="1"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorText"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:lines="1"
+                        android:text="46"
+                        android:textSize="14sp"
+                        android:textColor="?attr/colorText"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/activity_profile_article_list"/>
+        <!--        <ScrollView-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent">-->
+        <!--            <LinearLayout-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:padding="16dp"-->
+        <!--                android:orientation="vertical">-->
+        <!--                <include layout="@layout/article_item" />-->
+        <!--                <LinearLayout-->
+        <!--                    android:layout_width="wrap_content"-->
+        <!--                    android:layout_height="24dp" />-->
+        <!--                <include layout="@layout/article_item" />-->
+        <!--                <LinearLayout-->
+        <!--                    android:layout_width="wrap_content"-->
+        <!--                    android:layout_height="24dp" />-->
+        <!--                <include layout="@layout/article_item" />-->
+        <!--            </LinearLayout>-->
+        <!--        </ScrollView>-->
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -34,6 +34,7 @@
                     android:id="@+id/article_item_title"
                     android:textSize="21sp"
                     android:lines="1"
+                    android:text="Inception - A must watch"
                     android:ellipsize="end"
                     android:textColor="?attr/colorText"
                     android:textStyle="bold" />
@@ -52,12 +53,13 @@
                     android:tint="@color/colorPrimary"/>
             </LinearLayout>
             <TextView
-                android:id="@+id/article_item_description"
+                android:id="@+id/article_item_body"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:ellipsize="end"
                 android:maxLines="3"
+                android:text="Inception is a really good movie, you should really watch it"
                 android:textColor="?attr/colorText"
                 android:textSize="16sp"
                 android:textStyle="italic" />
@@ -67,6 +69,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/article_item_timestamp"
                 android:textSize="10sp"
+                android:text="24m ago"
                 android:textColor="@color/colorPlaceholder"
                 android:layout_gravity="end"/>
             <LinearLayout
@@ -95,6 +98,7 @@
                     android:textSize="12sp"
                     android:textColor="?attr/colorText"
                     android:textStyle="bold"
+                    android:text="DotWiz"
                     android:layout_marginStart="10dp"/>
 
                 <LinearLayout

@@ -1,6 +1,11 @@
 package com.mogal.utils;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.widget.ImageView;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class ImageHandler extends Thread {
 
@@ -22,8 +27,12 @@ public class ImageHandler extends Thread {
 
     @Override
     public void run(){
-        //load image bitmap
-
-        this.destroy();
+        try {
+            URL url = new URL(this.image_url);
+            Bitmap bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+            this.imageView.setImageBitmap(bitmap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

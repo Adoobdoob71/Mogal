@@ -53,6 +53,7 @@
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:lines="1"
+                       android:text="DotWiz"
                        android:textColor="?attr/colorText"
                        android:textSize="21sp"
                        android:textStyle="bold" />
@@ -63,6 +64,7 @@
                        android:layout_height="wrap_content"
                        android:layout_marginTop="6dp"
                        android:lines="1"
+                       android:text="Joined on  18/3"
                        android:textColor="?attr/colorText"
                        android:textSize="16sp" />
                </LinearLayout>
@@ -104,6 +106,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:lines="1"
+                        android:text="12"
                         android:textSize="14sp"
                         android:textColor="?attr/colorText"/>
                 </LinearLayout>
@@ -125,6 +128,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:lines="1"
+                        android:text="46"
                         android:textSize="14sp"
                         android:textColor="?attr/colorText"/>
                 </LinearLayout>
