@@ -14,5 +14,15 @@
     <string name="articles">Articles</string>
     <string name="settings">Settings</string>
     <string name="create_article">Create Article</string>
-    <string name="create_article_placeholder">Your text goes here…</string>
+    <string name="create_article_name_placeholder">Name of the article</string>
+    <string name="create_article_body_placeholder">Your body text goes here…</string>
+    <string name="appearance">Appearance</string>
+    <string name="account">Account</string>
+    <string name="theme">Theme</string>
+    <string name="theme_description">Change the theme of the application</string>
+    <string name="sign_in">Sign in</string>
+    <string name="sign_in_description">Sign into your account</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="submit">Submit</string>
 </resources>

@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/activity_contacts_header_title"
                 android:text="@string/contacts"
-                android:textSize="24sp"
+                android:textSize="21sp"
                 android:textStyle="bold"
                 android:layout_marginStart="12dp"
                 android:textColor="?attr/colorText"/>
