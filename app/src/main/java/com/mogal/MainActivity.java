@@ -66,20 +66,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void handleButtons(){
-        PopupMenu menu = new PopupMenu(this, menuButton);
+        final PopupMenu menu = new PopupMenu(this, menuButton);
         menu.getMenuInflater().inflate(R.menu.activity_main_menu_button_menu, menu.getMenu());
         menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 Intent intent;
                 switch(menuItem.getItemId()) {
-                    case R.id.menu_profile:
-                        intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                    case R.id.menu_create_article:
+                        intent = new Intent(getApplicationContext(), CreateArticle.class);
                         startActivity(intent);
                         break;
-                    case R.id.menu_contacts:
-                        intent = new Intent(getApplicationContext(), ContactsActivity.class);
-                        startActivity(intent);
+                    case R.id.menu_create_review:
+//                        intent = new Intent(getApplicationContext(), ContactsActivity.class);
+//                        startActivity(intent);
                         break;
                     case R.id.menu_reviews:
                         intent = new Intent(getApplicationContext(), ReviewsActivity.class);
@@ -100,6 +100,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        menuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                menu.show();
+            }
+        });
     }
 
     public void loadData(){
@@ -118,8 +124,9 @@ public class MainActivity extends AppCompatActivity {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Article article = (Article) dataSnapshot.getValue();
                     article.setID(dataSnapshot.getKey());
-                    articleAdapter.add(article);
+                    articleArrayList.add(article);
                 }
+                articleAdapter.notifyDataSetChanged();
             }
 
             @Override

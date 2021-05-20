@@ -59,8 +59,9 @@ public class ReviewsActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Review review = (Review) dataSnapshot.getValue();
-                    reviewAdapter.add(review);
+                    reviewArrayList.add(review);
                 }
+                reviewAdapter.notifyDataSetChanged();
             }
 
             @Override

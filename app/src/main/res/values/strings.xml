@@ -13,6 +13,7 @@
     <string name="menu">Menu</string>
     <string name="articles">Articles</string>
     <string name="settings">Settings</string>
+    <string name="create_review">Create Review</string>
     <string name="create_article">Create Article</string>
     <string name="create_article_name_placeholder">Name of the article</string>
     <string name="create_article_body_placeholder">Your body text goes here…</string>
