@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:padding="12dp"
+            android:padding="16dp"
             app:layout_scrollFlags="scroll|enterAlways|snap">
             <ImageButton
                 android:layout_width="wrap_content"

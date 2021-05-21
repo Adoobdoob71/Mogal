@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 public class SettingsActivity extends AppCompatActivity {
 
     ImageButton backButton;
-    LinearLayout signInButton;
+    LinearLayout signInButton, signUpButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +24,7 @@ public class SettingsActivity extends AppCompatActivity {
     public void initializeVariables(){
         backButton = findViewById(R.id.activity_settings_back_button);
         signInButton = findViewById(R.id.activity_settings_sign_in);
+        signUpButton = findViewById(R.id.activity_settings_sign_up);
     }
 
     public void handleButtons(){
@@ -37,6 +38,13 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+                startActivity(intent);
+            }
+        });
+        signUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
                 startActivity(intent);
             }
         });

@@ -23,6 +23,9 @@
     <string name="theme_description">Change the theme of the application</string>
     <string name="sign_in">Sign in</string>
     <string name="sign_in_description">Sign into your account</string>
+    <string name="sign_up">Sign up</string>
+    <string name="sign_up_description">Create a new account</string>
+    <string name="nickname">Nickname</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="submit">Submit</string>
