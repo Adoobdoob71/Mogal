@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="8dp"
-                android:elevation="18dp"
+                android:elevation="0dp"
                 android:gravity="center_vertical"
                 android:background="@drawable/hovering_card_background">
                 <androidx.cardview.widget.CardView
@@ -37,6 +37,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:src="@drawable/picture"
+                        android:scaleType="centerCrop"
                         android:id="@+id/activity_profile_user_picture"/>
                 </androidx.cardview.widget.CardView>
 
@@ -73,7 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:elevation="18dp"
+                android:elevation="0dp"
                 android:layout_marginTop="32dp"
                 android:background="@drawable/hovering_card_background">
                 <LinearLayout
@@ -95,6 +96,7 @@
                         android:layout_height="wrap_content"
                         android:lines="1"
                         android:text="12"
+                        android:id="@+id/activity_profile_articles_number"
                         android:textSize="14sp"
                         android:textColor="?attr/colorText"/>
                 </LinearLayout>
@@ -117,6 +119,7 @@
                         android:layout_height="wrap_content"
                         android:lines="1"
                         android:text="46"
+                        android:id="@+id/activity_profile_reviews_number"
                         android:textSize="14sp"
                         android:textColor="?attr/colorText"/>
                 </LinearLayout>
@@ -127,29 +130,15 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:fillViewport="true"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
         <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/activity_profile_article_list"/>
-        <!--        <ScrollView-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="match_parent">-->
-        <!--            <LinearLayout-->
-        <!--                android:layout_width="match_parent"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:padding="16dp"-->
-        <!--                android:orientation="vertical">-->
-        <!--                <include layout="@layout/article_item" />-->
-        <!--                <LinearLayout-->
-        <!--                    android:layout_width="wrap_content"-->
-        <!--                    android:layout_height="24dp" />-->
-        <!--                <include layout="@layout/article_item" />-->
-        <!--                <LinearLayout-->
-        <!--                    android:layout_width="wrap_content"-->
-        <!--                    android:layout_height="24dp" />-->
-        <!--                <include layout="@layout/article_item" />-->
-        <!--            </LinearLayout>-->
-        <!--        </ScrollView>-->
+            android:id="@+id/activity_profile_article_list"
+            android:divider="@null"
+            android:nestedScrollingEnabled="true"
+            android:dividerHeight="8dp"/>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -15,18 +15,32 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.android.material.checkbox.MaterialCheckBox;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.mogal.ArticleActivity;
 import com.mogal.R;
 import com.mogal.classes.Article;
+import com.mogal.classes.User;
 import com.mogal.utils.ImageHandler;
 import com.mogal.utils.UsefulMethods;
+import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
 
 import java.util.Date;
 import java.util.List;
 
 public class ArticleAdapter extends ArrayAdapter<Article> {
+
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference ref;
     public ArticleAdapter(@NonNull Context context, @NonNull List<Article> objects) {
         super(context, 0, objects);
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        ref = firebaseDatabase.getReference("users");
     }
 
     @NonNull
@@ -40,39 +54,50 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
         TextView movie_body = convertView.findViewById(R.id.article_item_body);
         TextView timestamp = convertView.findViewById(R.id.article_item_timestamp);
         TextView poster_nickname = convertView.findViewById(R.id.article_item_poster_nickname);
-        ImageView movie_picture = convertView.findViewById(R.id.article_item_image_view);
+        ImageView article_picture = convertView.findViewById(R.id.article_item_image_view);
         ImageView poster_profile_picture = convertView.findViewById(R.id.article_item_poster_profile_picture);
         ImageButton read_more_button = convertView.findViewById(R.id.article_item_read_more);
-        MaterialCheckBox like_button = convertView.findViewById(R.id.article_item_like_button);
 
         movie_title.setText(article.getName());
         movie_body.setText(article.getBody());
         timestamp.setText(UsefulMethods.calculateTimestamp(article.getTime(), new Date()));
-//        poster_nickname.setText();
-        ImageHandler movie_picture_handler = new ImageHandler(movie_picture, article.getPicture());
-//        ImageHandler poster_profile_handler = new ImageHandler(poster_profile_picture, article.getPoster().getProfile_picture());
-        movie_picture_handler.start();
-//        poster_profile_handler.start();
-        handleEvents(read_more_button, like_button, article);
+        if (article.getPicture().length() != 0)
+            Picasso.get().load(article.getPicture()).into(article_picture);
+
+        loadUserData(article, poster_nickname, poster_profile_picture);
+        handleEvents(read_more_button, article);
+
         return convertView;
     }
 
-    public void handleEvents(ImageButton read_more_button, MaterialCheckBox like_button, final Article article){
+    public void handleEvents(ImageButton read_more_button, final Article article){
         read_more_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), ArticleActivity.class);
-                intent.putExtra("ArticleID", article.getID());
+                intent.putExtra("article_picture_url", article.getPicture());
+                intent.putExtra("article_name", article.getName());
+                intent.putExtra("article_body", article.getBody());
+                intent.putExtra("article_poster_uid", article.getPosterUID());
                 getContext().startActivity(intent);
-            }
-        });
-
-        like_button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                //like-unlike here, needs work
             }
         });
     }
 
+    public void loadUserData(Article article, final TextView poster_nickname, final ImageView profile_picture){
+        ref.child(article.getPosterUID())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        User user = snapshot.getValue(User.class);
+                        poster_nickname.setText(user.getNickname());
+                        Picasso.get().load(user.getProfile_picture()).into(profile_picture);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+    }
 }

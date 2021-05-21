@@ -58,4 +58,15 @@ public class User {
     public void setJoinedOn(Date joinedOn) {
         this.joinedOn = joinedOn;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "nickname='" + nickname + '\'' +
+                ", profile_picture='" + profile_picture + '\'' +
+                ", online=" + online +
+                ", uid='" + uid + '\'' +
+                ", joinedOn=" + joinedOn +
+                '}';
+    }
 }

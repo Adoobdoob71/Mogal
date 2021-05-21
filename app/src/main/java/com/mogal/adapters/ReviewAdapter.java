@@ -16,6 +16,7 @@ import com.mogal.R;
 import com.mogal.classes.Review;
 import com.mogal.utils.ImageHandler;
 import com.mogal.utils.UsefulMethods;
+import com.squareup.picasso.Picasso;
 
 import java.util.Date;
 import java.util.List;
@@ -36,12 +37,13 @@ public class ReviewAdapter extends ArrayAdapter<Review> {
         TextView nickname = convertView.findViewById(R.id.review_item_nickname);
         TextView timestamp = convertView.findViewById(R.id.review_item_timestamp);
         TextView body = convertView.findViewById(R.id.review_item_body);
-        ImageView imageView = convertView.findViewById(R.id.review_item_profile_picture);
+        ImageView profile_picture = convertView.findViewById(R.id.review_item_profile_picture);
+
         nickname.setText(review.getNickname());
         timestamp.setText(UsefulMethods.calculateTimestamp(review.getTime(), new Date()));
         body.setText(review.getBody());
-        ImageHandler imageHandler = new ImageHandler(imageView, review.getProfile_picture());
-        imageHandler.start();
+
+        Picasso.get().load(review.getProfile_picture()).into(profile_picture);
         return convertView;
     }
 }

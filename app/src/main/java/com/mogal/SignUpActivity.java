@@ -75,7 +75,7 @@ public class SignUpActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful() && nicknameTextInput.getText().toString().trim().length() != 0){
                             FirebaseUser user = task.getResult().getUser();
-                            userProperties = new User(nicknameTextInput.getText().toString().trim(), profilePictureTextInput.getText().toString().trim(), true, userProperties.getUid(), new Date());
+                            userProperties = new User(nicknameTextInput.getText().toString().trim(), profilePictureTextInput.getText().toString().trim(), true, user.getUid(), new Date());
                             ref
                                     .child(user.getUid())
                                     .setValue(userProperties)

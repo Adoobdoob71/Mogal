@@ -75,7 +75,6 @@ public class SearchActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 if (searchQuery.getText().toString().trim().length() != 0){
                     articleArrayList.clear();
-                    resultAdapter.notifyDataSetChanged();
                     String query = searchQuery.getText().toString().trim();
                     ref.orderByChild("name").startAt(query).endAt(query + "\uf8ff").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override

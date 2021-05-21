@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
 import android.content.Intent;
@@ -30,6 +31,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.mogal.adapters.ArticleAdapter;
 import com.mogal.classes.Article;
 import com.mogal.utils.ImageHandler;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -39,18 +41,20 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout searchBar;
     ImageView profilePicture;
     ListView articleListView;
+    SwipeRefreshLayout swipeRefreshLayout;
     FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
     ArticleAdapter articleAdapter;
     ArrayList<Article> articleArrayList;
-
+    FirebaseUser user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initializeVariables();
         handleButtons();
-        loadData();
+        loadUserData();
+        loadArticles();
     }
 
     public void initializeVariables(){
@@ -58,11 +62,13 @@ public class MainActivity extends AppCompatActivity {
         searchBar = findViewById(R.id.activity_main_search_bar);
         profilePicture = findViewById(R.id.activity_main_profile_picture);
         articleListView = findViewById(R.id.activity_main_list_view);
+        swipeRefreshLayout = findViewById(R.id.activity_main_refresh_list_view);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         articleArrayList = new ArrayList<>();
         articleAdapter = new ArticleAdapter(this, articleArrayList);
         articleListView.setAdapter(articleAdapter);
+        user = firebaseAuth.getCurrentUser();
     }
 
     public void handleButtons(){
@@ -106,22 +112,41 @@ public class MainActivity extends AppCompatActivity {
                 menu.show();
             }
         });
+        profilePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                intent.putExtra("user_id", user.getUid());
+                startActivity(intent);
+            }
+        });
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                articleArrayList.clear();
+                loadArticles();
+                articleAdapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
 
-    public void loadData(){
-        FirebaseUser user = firebaseAuth.getCurrentUser();
+    public void loadUserData(){
         if (user != null) {
             SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-            String profilePictureURL = sharedPreferences.getString("profile_picture_url", "");
-            ImageHandler imageHandler = new ImageHandler(profilePicture, profilePictureURL);
-            imageHandler.start();
+            String profilePictureURL = sharedPreferences.getString("profile_picture_url", "something");
+
+            Picasso.get().load(profilePictureURL).into(profilePicture);
         }
+    }
+
+    public void loadArticles(){
         DatabaseReference ref = firebaseDatabase.getReference("articles");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Article article = (Article) dataSnapshot.getValue();
+                    Article article = dataSnapshot.getValue(Article.class);
                     article.setID(dataSnapshot.getKey());
                     articleArrayList.add(article);
                 }
@@ -134,7 +159,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
     @Override
     public void onBackPressed() {
         return;
