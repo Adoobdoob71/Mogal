@@ -111,8 +111,7 @@ public class MainActivity extends AppCompatActivity {
     public void loadData(){
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if (user != null) {
-            String UID = user.getUid();
-            SharedPreferences sharedPreferences = this.getPreferences(Context.MODE_PRIVATE);
+            SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
             String profilePictureURL = sharedPreferences.getString("profile_picture_url", "");
             ImageHandler imageHandler = new ImageHandler(profilePicture, profilePictureURL);
             imageHandler.start();

@@ -25,6 +25,8 @@
     <string name="sign_in_description">Sign into your account</string>
     <string name="sign_up">Sign up</string>
     <string name="sign_up_description">Create a new account</string>
+    <string name="sign_out">Sign out</string>
+    <string name="sign_out_description">Sign out of your account</string>
     <string name="nickname">Nickname</string>
     <string name="email">Email</string>
     <string name="password">Password</string>

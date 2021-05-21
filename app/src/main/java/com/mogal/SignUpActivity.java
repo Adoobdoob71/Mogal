@@ -3,6 +3,8 @@ package com.mogal;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -81,7 +83,13 @@ public class SignUpActivity extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()){
-                                                Toast.makeText(getApplicationContext(), "Registered successfuly!", Toast.LENGTH_SHORT).show();
+                                                SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+                                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                                editor.putString("nickname", userProperties.getNickname());
+                                                editor.putString("uid", userProperties.getUid());
+                                                editor.putString("profile_picture_url", userProperties.getProfile_picture());
+                                                editor.apply();
+                                                Toast.makeText(getApplicationContext(), "Registered successfully!", Toast.LENGTH_SHORT).show();
                                                 finish();
                                             }
                                             else {
@@ -89,6 +97,7 @@ public class SignUpActivity extends AppCompatActivity {
                                             }
                                         }
                                     });
+
                         }
                         else {
                             Toast.makeText(getApplicationContext(), "Are you sure everything's filled?", Toast.LENGTH_SHORT).show();

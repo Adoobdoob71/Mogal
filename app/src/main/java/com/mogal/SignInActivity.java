@@ -96,8 +96,10 @@ public class SignInActivity extends AppCompatActivity {
 
             }
         });
-        SharedPreferences sharedPreferences = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("nickname", userProperties.getNickname());
+        editor.putString("uid", userProperties.getUid());
         editor.putString("profile_picture_url", userProperties.getProfile_picture());
         editor.apply();
     }
