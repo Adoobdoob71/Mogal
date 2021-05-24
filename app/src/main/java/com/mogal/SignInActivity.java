@@ -3,6 +3,7 @@ package com.mogal;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -66,6 +67,11 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     public void signIn(){
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Please wait");
+        progressDialog.setMessage("Signing in user...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.show();
         firebaseAuth
                 .signInWithEmailAndPassword(emailTextInput.getText().toString().trim(), passwordTextInput.getText().toString().trim())
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -73,34 +79,36 @@ public class SignInActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     Toast.makeText(getApplicationContext(), "Sign in was successful", Toast.LENGTH_SHORT).show();
-                    saveSignInProperties(task.getResult().getUser());
+//                    saveSignInProperties(task.getResult().getUser());
+                    progressDialog.dismiss();
                     finish();
                 }
                 else {
+                    progressDialog.dismiss();
                     Toast.makeText(getApplicationContext(), "Sign in wasn't successful", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
-    public void saveSignInProperties(FirebaseUser user){
-        DatabaseReference reference = firebaseDatabase.getReference("users");
-        reference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                userProperties = snapshot.getValue(User.class);
-                SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("nickname", userProperties.getNickname());
-                editor.putString("uid", userProperties.getUid());
-                editor.putString("profile_picture_url", userProperties.getProfile_picture());
-                editor.commit();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+//    public void saveSignInProperties(FirebaseUser user){
+//        DatabaseReference reference = firebaseDatabase.getReference("users");
+//        reference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                userProperties = snapshot.getValue(User.class);
+//                SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+//                SharedPreferences.Editor editor = sharedPreferences.edit();
+//                editor.putString("nickname", userProperties.getNickname());
+//                editor.putString("uid", userProperties.getUid());
+//                editor.putString("profile_picture_url", userProperties.getProfile_picture());
+//                editor.commit();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 }

@@ -3,6 +3,7 @@ package com.mogal;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -67,6 +68,11 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void registerUser(){
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Please wait");
+        progressDialog.setMessage("Registering user...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.show();
         final DatabaseReference ref = firebaseDatabase.getReference("users");
         firebaseAuth
                 .createUserWithEmailAndPassword(emailTextInput.getText().toString().trim(), passwordTextInput.getText().toString().trim())
@@ -75,7 +81,7 @@ public class SignUpActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful() && nicknameTextInput.getText().toString().trim().length() != 0){
                             FirebaseUser user = task.getResult().getUser();
-                            userProperties = new User(nicknameTextInput.getText().toString().trim(), profilePictureTextInput.getText().toString().trim(), true, user.getUid(), new Date());
+                            userProperties = new User(nicknameTextInput.getText().toString().trim(), profilePictureTextInput.getText().toString().trim(), user.getUid(), new Date());
                             ref
                                     .child(user.getUid())
                                     .setValue(userProperties)
@@ -83,16 +89,18 @@ public class SignUpActivity extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()){
-                                                SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-                                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                                editor.putString("nickname", userProperties.getNickname());
-                                                editor.putString("uid", userProperties.getUid());
-                                                editor.putString("profile_picture_url", userProperties.getProfile_picture());
-                                                editor.apply();
+//                                                SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+//                                                SharedPreferences.Editor editor = sharedPreferences.edit();
+//                                                editor.putString("nickname", userProperties.getNickname());
+//                                                editor.putString("uid", userProperties.getUid());
+//                                                editor.putString("profile_picture_url", userProperties.getProfile_picture());
+//                                                editor.apply();
+                                                progressDialog.dismiss();
                                                 Toast.makeText(getApplicationContext(), "Registered successfully!", Toast.LENGTH_SHORT).show();
                                                 finish();
                                             }
                                             else {
+                                                progressDialog.dismiss();
                                                 Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
                                             }
                                         }
@@ -100,6 +108,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                         }
                         else {
+                            progressDialog.dismiss();
                             Toast.makeText(getApplicationContext(), "Are you sure everything's filled?", Toast.LENGTH_SHORT).show();
                         }
                     }

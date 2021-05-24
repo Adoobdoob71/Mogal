@@ -2,14 +2,17 @@ package com.mogal;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.NavOptions;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,7 +22,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -27,13 +29,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.mogal.adapters.ArticleAdapter;
 import com.mogal.classes.Article;
-import com.mogal.utils.ImageHandler;
+import com.mogal.classes.User;
+import com.mogal.receivers.AirplaneModeReceiver;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,6 +52,22 @@ public class MainActivity extends AppCompatActivity {
     ArticleAdapter articleAdapter;
     ArrayList<Article> articleArrayList;
     FirebaseUser user;
+    User userDetails;
+    AirplaneModeReceiver airplaneModeReceiver;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        airplaneModeReceiver = new AirplaneModeReceiver();
+        registerReceiver(airplaneModeReceiver, new IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED));
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(airplaneModeReceiver);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,17 +104,12 @@ public class MainActivity extends AppCompatActivity {
                         intent = new Intent(getApplicationContext(), CreateArticle.class);
                         startActivity(intent);
                         break;
-                    case R.id.menu_create_review:
-//                        intent = new Intent(getApplicationContext(), ContactsActivity.class);
-//                        startActivity(intent);
-                        break;
-                    case R.id.menu_reviews:
-                        intent = new Intent(getApplicationContext(), ReviewsActivity.class);
-                        startActivity(intent);
-                        break;
                     case R.id.menu_settings:
                         intent = new Intent(getApplicationContext(), SettingsActivity.class);
                         startActivity(intent);
+                        break;
+                    case R.id.menu_load_recent_articles:
+                        getLocation();
                         break;
                 }
                 return true;
@@ -133,10 +149,19 @@ public class MainActivity extends AppCompatActivity {
 
     public void loadUserData(){
         if (user != null) {
-            SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-            String profilePictureURL = sharedPreferences.getString("profile_picture_url", "something");
+            DatabaseReference ref = firebaseDatabase.getReference("users");
+            ref.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    userDetails = snapshot.getValue(User.class);
+                    Picasso.get().load(userDetails.getProfile_picture()).into(profilePicture);
+                }
 
-            Picasso.get().load(profilePictureURL).into(profilePicture);
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
         }
     }
 
@@ -159,6 +184,50 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void getLocation() {
+        LocationManager locationManager = (LocationManager) this.getSystemService(this.LOCATION_SERVICE);
+        @SuppressLint("MissingPermission") Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        String countryName = getCountryName(location.getLatitude(), location.getLongitude());
+        loadNearbyArticles(countryName);
+    }
+
+    public String getCountryName(double latitude, double longitude){
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        List<Address> addresses = null;
+        try {
+            addresses = geocoder.getFromLocation(latitude, longitude, 1);
+            if (addresses != null && !addresses.isEmpty())
+                return addresses.get(0).getCountryName();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void loadNearbyArticles(String country){
+        articleArrayList.clear();
+        DatabaseReference ref = firebaseDatabase.getReference("articles");
+        ref
+                .orderByChild("country")
+                .equalTo(country)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                            Article article = dataSnapshot.getValue(Article.class);
+                            articleArrayList.add(article);
+                        }
+                        articleAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+    }
+
     @Override
     public void onBackPressed() {
         return;

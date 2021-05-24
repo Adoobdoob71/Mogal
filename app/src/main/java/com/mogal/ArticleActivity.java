@@ -15,9 +15,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.mogal.classes.Article;
 import com.mogal.classes.User;
-import com.mogal.utils.ImageHandler;
 import com.squareup.picasso.Picasso;
 
 public class ArticleActivity extends AppCompatActivity {
@@ -62,7 +60,7 @@ public class ArticleActivity extends AppCompatActivity {
         articleName.setText(data.getStringExtra("article_name"));
         articleBody.setText(data.getStringExtra("article_body"));
 
-        if (articlePictureUrl.length() != 0)
+        if (articlePictureUrl != null && articlePictureUrl.length() != 0)
             Picasso.get().load(articlePictureUrl).into(articlePicture);
 
         DatabaseReference ref = firebaseDatabase.getReference("users");

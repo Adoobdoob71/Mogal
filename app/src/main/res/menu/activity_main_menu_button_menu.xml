@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item  android:id="@+id/menu_reviews"  android:icon="@drawable/comment" android:title="@string/reviews"/>
-    <item android:id="@+id/menu_create_article" android:icon="@drawable/edit" android:title="@string/create_article" />
-    <item android:id="@+id/menu_create_review" android:icon="@drawable/edit" android:title="@string/create_review" />
-    <item android:id="@+id/menu_settings" android:icon="@drawable/cog_icon" android:title="@string/settings" />
+    <item android:id="@+id/menu_load_recent_articles" android:title="@string/load_nearby_articles" />
+    <item android:id="@+id/menu_create_article" android:title="@string/create_article" />
+    <item android:id="@+id/menu_settings" android:title="@string/settings" />
 </menu>

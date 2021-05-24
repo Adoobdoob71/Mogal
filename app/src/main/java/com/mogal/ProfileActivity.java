@@ -19,7 +19,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.mogal.adapters.ArticleAdapter;
 import com.mogal.classes.Article;
 import com.mogal.classes.User;
-import com.mogal.utils.ImageHandler;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -33,7 +32,7 @@ public class ProfileActivity extends AppCompatActivity {
     ArrayList<Article> articleArrayList;
     ImageView profilePicture;
     LinearLayout backgroundImage;
-    TextView nickname, joinedOn, articlesNumber, reviewsNumber;
+    TextView nickname, joinedOn, articlesNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +50,6 @@ public class ProfileActivity extends AppCompatActivity {
         nickname = findViewById(R.id.activity_profile_nickname);
         joinedOn = findViewById(R.id.activity_profile_joined_on);
         articlesNumber = findViewById(R.id.activity_profile_articles_number);
-        reviewsNumber = findViewById(R.id.activity_profile_reviews_number);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         articleArrayList = new ArrayList<>();
@@ -84,17 +82,6 @@ public class ProfileActivity extends AppCompatActivity {
                             articleArrayList.add(article);
                         }
                         articleAdapter.notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-                reviewRef.orderByChild("posterUID").equalTo(userID).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        reviewsNumber.setText(snapshot.getChildrenCount() + "");
                     }
 
                     @Override

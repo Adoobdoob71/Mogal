@@ -15,7 +15,6 @@ import androidx.annotation.Nullable;
 import com.mogal.ArticleActivity;
 import com.mogal.R;
 import com.mogal.classes.Article;
-import com.mogal.utils.ImageHandler;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

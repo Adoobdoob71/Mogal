@@ -2,6 +2,7 @@ package com.mogal;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -66,12 +67,18 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void signOut(){
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Please wait");
+        progressDialog.setMessage("Signing in user...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.show();
         firebaseAuth.signOut();
-        SharedPreferences sharedPreferences = this.getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("nickname", null);
-        editor.putString("profile_picture_url", null);
-        editor.putString("uid", null);
-        editor.apply();
+        progressDialog.dismiss();
+//        SharedPreferences sharedPreferences = this.getPreferences(Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        editor.putString("nickname", null);
+//        editor.putString("profile_picture_url", null);
+//        editor.putString("uid", null);
+//        editor.apply();
     }
 }

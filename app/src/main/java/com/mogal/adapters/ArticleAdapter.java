@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,11 +22,8 @@ import com.mogal.ArticleActivity;
 import com.mogal.R;
 import com.mogal.classes.Article;
 import com.mogal.classes.User;
-import com.mogal.utils.ImageHandler;
 import com.mogal.utils.UsefulMethods;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.util.Date;
 import java.util.List;
@@ -54,6 +49,8 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
         TextView movie_body = convertView.findViewById(R.id.article_item_body);
         TextView timestamp = convertView.findViewById(R.id.article_item_timestamp);
         TextView poster_nickname = convertView.findViewById(R.id.article_item_poster_nickname);
+        TextView article_country = convertView.findViewById(R.id.article_item_country);
+
         ImageView article_picture = convertView.findViewById(R.id.article_item_image_view);
         ImageView poster_profile_picture = convertView.findViewById(R.id.article_item_poster_profile_picture);
         ImageButton read_more_button = convertView.findViewById(R.id.article_item_read_more);
@@ -61,6 +58,8 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
         movie_title.setText(article.getName());
         movie_body.setText(article.getBody());
         timestamp.setText(UsefulMethods.calculateTimestamp(article.getTime(), new Date()));
+        article_country.setText(article.getCountry());
+
         if (article.getPicture().length() != 0)
             Picasso.get().load(article.getPicture()).into(article_picture);
 

@@ -5,14 +5,12 @@ import java.util.Date;
 public class User {
     private String nickname;
     private String profile_picture;
-    private boolean online;
     private String uid;
     private Date joinedOn;
 
-    public User(String nickname, String profile_picture, boolean online, String uid, Date joinedOn) {
+    public User(String nickname, String profile_picture, String uid, Date joinedOn) {
         this.nickname = nickname;
         this.profile_picture = profile_picture;
-        this.online = online;
         this.uid = uid;
         this.joinedOn = joinedOn;
     }
@@ -33,14 +31,6 @@ public class User {
 
     public void setProfile_picture(String profile_picture) {
         this.profile_picture = profile_picture;
-    }
-
-    public boolean isOnline() {
-        return online;
-    }
-
-    public void setOnline(boolean online) {
-        this.online = online;
     }
 
     public String getUid() {
@@ -64,7 +54,6 @@ public class User {
         return "User{" +
                 "nickname='" + nickname + '\'' +
                 ", profile_picture='" + profile_picture + '\'' +
-                ", online=" + online +
                 ", uid='" + uid + '\'' +
                 ", joinedOn=" + joinedOn +
                 '}';
