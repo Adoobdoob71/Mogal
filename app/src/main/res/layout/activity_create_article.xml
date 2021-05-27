@@ -42,27 +42,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
-            <LinearLayout
+            <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/attachment_icon"
-                    android:tint="?attr/colorText"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:id="@+id/activity_create_article_attachment_button"
-                    android:layout_marginEnd="12dp"/>
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/send_icon"
-                    android:tint="?attr/colorText"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:id="@+id/activity_create_article_upload_button"/>
-            </LinearLayout>
+                android:src="@drawable/send_icon"
+                android:tint="?attr/colorText"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:id="@+id/activity_create_article_upload_button"/>
         </LinearLayout>
     </com.google.android.material.appbar.AppBarLayout>
     <EditText
@@ -70,6 +56,7 @@
         android:layout_height="wrap_content"
         android:background="@null"
         android:textSize="16sp"
+        android:textColor="?attr/colorText"
         android:id="@+id/activity_create_article_name_edit_text"
         android:hint="@string/create_article_name_placeholder"
         android:textColorHint="@color/colorPlaceholder"
@@ -80,6 +67,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/activity_create_article_header"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:textSize="16sp"
+        android:id="@+id/activity_create_article_picture_url_edit_text"
+        android:hint="@string/article_picture_url"
+        android:textColorHint="@color/colorPlaceholder"
+        android:textColor="?attr/colorText"
+        android:padding="10dp"
+        android:lines="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/activity_create_article_name_edit_text"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -95,6 +96,6 @@
         android:gravity="top"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/activity_create_article_name_edit_text"
+        app:layout_constraintTop_toBottomOf="@id/activity_create_article_picture_url_edit_text"
         app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

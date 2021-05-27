@@ -1,14 +1,20 @@
 package com.mogal;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -21,7 +27,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -49,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
     SwipeRefreshLayout swipeRefreshLayout;
     FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
+    FusedLocationProviderClient fusedLocationProviderClient;
     ArticleAdapter articleAdapter;
     ArrayList<Article> articleArrayList;
     FirebaseUser user;
@@ -78,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         loadArticles();
     }
 
-    public void initializeVariables(){
+    public void initializeVariables() {
         menuButton = findViewById(R.id.activity_main_menu_button);
         searchBar = findViewById(R.id.activity_main_search_bar);
         profilePicture = findViewById(R.id.activity_main_profile_picture);
@@ -86,20 +98,21 @@ public class MainActivity extends AppCompatActivity {
         swipeRefreshLayout = findViewById(R.id.activity_main_refresh_list_view);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         articleArrayList = new ArrayList<>();
         articleAdapter = new ArticleAdapter(this, articleArrayList);
         articleListView.setAdapter(articleAdapter);
         user = firebaseAuth.getCurrentUser();
     }
 
-    public void handleButtons(){
+    public void handleButtons() {
         final PopupMenu menu = new PopupMenu(this, menuButton);
         menu.getMenuInflater().inflate(R.menu.activity_main_menu_button_menu, menu.getMenu());
         menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 Intent intent;
-                switch(menuItem.getItemId()) {
+                switch (menuItem.getItemId()) {
                     case R.id.menu_create_article:
                         intent = new Intent(getApplicationContext(), CreateArticle.class);
                         startActivity(intent);
@@ -147,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void loadUserData(){
+    public void loadUserData() {
         if (user != null) {
             DatabaseReference ref = firebaseDatabase.getReference("users");
             ref.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -165,12 +178,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void loadArticles(){
+    public void loadArticles() {
         DatabaseReference ref = firebaseDatabase.getReference("articles");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Article article = dataSnapshot.getValue(Article.class);
                     article.setID(dataSnapshot.getKey());
                     articleArrayList.add(article);
@@ -185,11 +198,35 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+    private ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
+        @Override
+        public void onActivityResult(Boolean isGranted) {
+            if (isGranted) {
+                Toast.makeText(MainActivity.this, "Great, permission granted!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(MainActivity.this, "You won't be able to use this feature if you don't give the permission", Toast.LENGTH_SHORT).show();
+            }
+        }
+    });
+
     public void getLocation() {
-        LocationManager locationManager = (LocationManager) this.getSystemService(this.LOCATION_SERVICE);
-        @SuppressLint("MissingPermission") Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        String countryName = getCountryName(location.getLatitude(), location.getLongitude());
-        loadNearbyArticles(countryName);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
+            requestPermissionLauncher.launch(Manifest.permission.ACCESS_COARSE_LOCATION);
+            return;
+        }
+        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+            @Override
+            public void onComplete(@NonNull Task<Location> task) {
+                if (task.isSuccessful()){
+                    String countryName = getCountryName(task.getResult().getLatitude(), task.getResult().getLongitude());
+                    loadNearbyArticles(countryName);
+                }
+                else
+                    Toast.makeText(MainActivity.this, "Couldn't get your location", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public String getCountryName(double latitude, double longitude){

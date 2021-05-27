@@ -13,7 +13,7 @@
     <color name="colorTextLight">#000</color>
     <color name="colorBackgroundLight">#EBEBEB</color>
     <color name="colorDividerLight">#959595</color>
-    <color name="colorCardLight">#F0F0F0</color>
+    <color name="colorCardLight">#FBFBFB</color>
 
     <!--     dark theme colors    -->
     <color name="colorTabDark">#1B1B1B</color>

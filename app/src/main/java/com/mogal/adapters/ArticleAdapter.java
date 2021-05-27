@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mogal.ArticleActivity;
+import com.mogal.ProfileActivity;
 import com.mogal.R;
 import com.mogal.classes.Article;
 import com.mogal.classes.User;
@@ -64,12 +65,12 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
             Picasso.get().load(article.getPicture()).into(article_picture);
 
         loadUserData(article, poster_nickname, poster_profile_picture);
-        handleEvents(read_more_button, article);
+        handleEvents(read_more_button, poster_nickname, article);
 
         return convertView;
     }
 
-    public void handleEvents(ImageButton read_more_button, final Article article){
+    public void handleEvents(ImageButton read_more_button, TextView nickname, final Article article){
         read_more_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,6 +79,15 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
                 intent.putExtra("article_name", article.getName());
                 intent.putExtra("article_body", article.getBody());
                 intent.putExtra("article_poster_uid", article.getPosterUID());
+                getContext().startActivity(intent);
+            }
+        });
+
+        nickname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), ProfileActivity.class);
+                intent.putExtra("user_id", article.getPosterUID());
                 getContext().startActivity(intent);
             }
         });
