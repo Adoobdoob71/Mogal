@@ -74,6 +74,11 @@ public class SignInActivity extends AppCompatActivity {
         progressDialog.setMessage("Signing in user...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.show();
+        if (emailTextInput.getText().toString().length() == 0 || passwordTextInput.getText().toString().length() == 0){
+            Toast.makeText(this, "Required fields aren't filled", Toast.LENGTH_SHORT).show();
+            progressDialog.dismiss();
+            return;
+        }
         firebaseAuth
                 .signInWithEmailAndPassword(emailTextInput.getText().toString().trim(), passwordTextInput.getText().toString().trim())
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {

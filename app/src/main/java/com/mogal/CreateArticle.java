@@ -9,6 +9,7 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -46,6 +47,7 @@ public class CreateArticle extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     FirebaseAuth firebaseAuth;
     FusedLocationProviderClient fusedLocationProviderClient;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,7 @@ public class CreateArticle extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        progressDialog = new ProgressDialog(this);
     }
 
     public void handleButtons() {
@@ -76,6 +79,10 @@ public class CreateArticle extends AppCompatActivity {
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressDialog.setTitle("Please wait");
+                progressDialog.setMessage("Uploading article...");
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progressDialog.show();
                 getLocation();
             }
         });
@@ -91,16 +98,19 @@ public class CreateArticle extends AppCompatActivity {
 
             if (article.getName().length() == 0 || article.getBody().length() == 0){
                 Toast.makeText(this, "Not all required fields are filled", Toast.LENGTH_SHORT).show();
-               return;
+                progressDialog.dismiss();
+                return;
             }
 
             ref.child(key).setValue(article).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
+                        progressDialog.dismiss();
                         Toast.makeText(getApplicationContext(), "Article uploaded!", Toast.LENGTH_SHORT).show();
                         finish();
                     } else {
+                        progressDialog.dismiss();
                         Toast.makeText(getApplicationContext(), "Something went wrong...", Toast.LENGTH_SHORT).show();
                     }
                 }

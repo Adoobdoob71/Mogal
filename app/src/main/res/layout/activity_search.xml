@@ -33,6 +33,7 @@
             android:textColor="?attr/colorText"
             android:textSize="14sp"
             android:hint="@string/search_something"
+            android:lines="1"
             android:background="@drawable/search_bar_background"
             android:padding="8dp"/>
     </LinearLayout>

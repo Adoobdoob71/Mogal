@@ -76,7 +76,7 @@ public class SignUpActivity extends AppCompatActivity {
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.show();
         final DatabaseReference ref = firebaseDatabase.getReference("users");
-        if (emailTextInput.getText().toString().length() == 0 || passwordTextInput.getText().toString().length() == 0){
+        if (nicknameTextInput.getText().toString().length() == 0 || emailTextInput.getText().toString().length() == 0 || passwordTextInput.getText().toString().length() == 0){
             Toast.makeText(this, "Required fields aren't filled", Toast.LENGTH_SHORT).show();
             progressDialog.dismiss();
             return;
@@ -110,7 +110,7 @@ public class SignUpActivity extends AppCompatActivity {
                         }
                         else {
                             progressDialog.dismiss();
-                            Toast.makeText(getApplicationContext(), "Somethig went wrong", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
