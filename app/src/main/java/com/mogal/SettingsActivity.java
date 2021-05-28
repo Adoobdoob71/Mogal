@@ -1,6 +1,7 @@
 package com.mogal;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.TaskStackBuilder;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -13,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.mogal.utils.UsefulMethods;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -67,18 +69,18 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void signOut(){
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Please wait");
-        progressDialog.setMessage("Signing in user...");
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.show();
-        firebaseAuth.signOut();
-        progressDialog.dismiss();
-//        SharedPreferences sharedPreferences = this.getPreferences(Context.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        editor.putString("nickname", null);
-//        editor.putString("profile_picture_url", null);
-//        editor.putString("uid", null);
-//        editor.apply();
+        if (firebaseAuth.getCurrentUser() != null){
+            ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("Please wait");
+            progressDialog.setMessage("Signing in user...");
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.show();
+            firebaseAuth.signOut();
+            progressDialog.dismiss();
+            UsefulMethods.reloadApp(this, getIntent());
+        }
+        else
+            Toast.makeText(this, "Already signed out", Toast.LENGTH_SHORT).show();
     }
+
 }

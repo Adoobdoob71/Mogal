@@ -32,6 +32,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.mogal.classes.Article;
+import com.mogal.utils.UsefulMethods;
 
 import java.io.IOException;
 import java.util.Date;
@@ -124,11 +125,16 @@ public class CreateArticle extends AppCompatActivity {
             requestPermissionLauncher.launch(Manifest.permission.ACCESS_COARSE_LOCATION);
             return;
         }
+        LocationManager locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+            Toast.makeText(this, "GPS is disabled", Toast.LENGTH_SHORT).show();
+            return;
+        }
         fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
             @Override
             public void onComplete(@NonNull Task<Location> task) {
                 if (task.isSuccessful()){
-                    String countryName = getCountryName(task.getResult().getLatitude(), task.getResult().getLongitude());
+                    String countryName = UsefulMethods.getCountryName(task.getResult().getLatitude(), task.getResult().getLongitude(), CreateArticle.this);
                     uploadArticle(countryName);
                 }
                 else
@@ -137,16 +143,5 @@ public class CreateArticle extends AppCompatActivity {
         });
     }
 
-    public String getCountryName(double latitude, double longitude){
-        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-        List<Address> addresses;
-        try {
-            addresses = geocoder.getFromLocation(latitude, longitude, 1);
-            if (addresses != null && !addresses.isEmpty())
-                return addresses.get(0).getCountryName();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+
 }

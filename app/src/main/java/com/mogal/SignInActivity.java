@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mogal.classes.User;
+import com.mogal.utils.UsefulMethods;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -79,8 +80,8 @@ public class SignInActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     Toast.makeText(getApplicationContext(), "Sign in was successful", Toast.LENGTH_SHORT).show();
-//                    saveSignInProperties(task.getResult().getUser());
                     progressDialog.dismiss();
+                    UsefulMethods.reloadApp(SignInActivity.this, getIntent());
                     finish();
                 }
                 else {
@@ -91,24 +92,4 @@ public class SignInActivity extends AppCompatActivity {
         });
     }
 
-//    public void saveSignInProperties(FirebaseUser user){
-//        DatabaseReference reference = firebaseDatabase.getReference("users");
-//        reference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                userProperties = snapshot.getValue(User.class);
-//                SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-//                SharedPreferences.Editor editor = sharedPreferences.edit();
-//                editor.putString("nickname", userProperties.getNickname());
-//                editor.putString("uid", userProperties.getUid());
-//                editor.putString("profile_picture_url", userProperties.getProfile_picture());
-//                editor.commit();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
 }

@@ -44,6 +44,7 @@ import com.mogal.adapters.ArticleAdapter;
 import com.mogal.classes.Article;
 import com.mogal.classes.User;
 import com.mogal.receivers.AirplaneModeReceiver;
+import com.mogal.utils.UsefulMethods;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -114,8 +115,12 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent;
                 switch (menuItem.getItemId()) {
                     case R.id.menu_create_article:
-                        intent = new Intent(getApplicationContext(), CreateArticle.class);
-                        startActivity(intent);
+                        if (firebaseAuth.getCurrentUser() != null){
+                            intent = new Intent(getApplicationContext(), CreateArticle.class);
+                            startActivity(intent);
+                        }
+                        else
+                            Toast.makeText(MainActivity.this, "You're not signed in", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.menu_settings:
                         intent = new Intent(getApplicationContext(), SettingsActivity.class);
@@ -144,9 +149,11 @@ public class MainActivity extends AppCompatActivity {
         profilePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-                intent.putExtra("user_id", user.getUid());
-                startActivity(intent);
+                if (user != null){
+                    Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                    intent.putExtra("user_id", user.getUid());
+                    startActivity(intent);
+                }
             }
         });
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -216,30 +223,22 @@ public class MainActivity extends AppCompatActivity {
             requestPermissionLauncher.launch(Manifest.permission.ACCESS_COARSE_LOCATION);
             return;
         }
+        LocationManager locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+            Toast.makeText(this, "GPS is disabled", Toast.LENGTH_SHORT).show();
+            return;
+        }
         fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
             @Override
             public void onComplete(@NonNull Task<Location> task) {
                 if (task.isSuccessful()){
-                    String countryName = getCountryName(task.getResult().getLatitude(), task.getResult().getLongitude());
+                    String countryName = UsefulMethods.getCountryName(task.getResult().getLatitude(), task.getResult().getLongitude(), MainActivity.this);
                     loadNearbyArticles(countryName);
                 }
                 else
                     Toast.makeText(MainActivity.this, "Couldn't get your location", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    public String getCountryName(double latitude, double longitude){
-        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-        List<Address> addresses = null;
-        try {
-            addresses = geocoder.getFromLocation(latitude, longitude, 1);
-            if (addresses != null && !addresses.isEmpty())
-                return addresses.get(0).getCountryName();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     public void loadNearbyArticles(String country){
