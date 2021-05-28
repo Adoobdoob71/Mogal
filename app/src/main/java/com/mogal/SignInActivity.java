@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -81,8 +82,7 @@ public class SignInActivity extends AppCompatActivity {
                 if (task.isSuccessful()){
                     Toast.makeText(getApplicationContext(), "Sign in was successful", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
-                    UsefulMethods.reloadApp(SignInActivity.this, getIntent());
-                    finish();
+                    UsefulMethods.reloadApp(SignInActivity.this, new Intent(SignInActivity.this, MainActivity.class));
                 }
                 else {
                     progressDialog.dismiss();

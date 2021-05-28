@@ -13,7 +13,7 @@
     </style>
 
     <!-- Dark application theme. -->
-    <style name="AppThemeDark" parent="Theme.MaterialComponents.NoActionBar.Bridge">
+    <style name="AppThemeDark" parent="Theme.MaterialComponents.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>

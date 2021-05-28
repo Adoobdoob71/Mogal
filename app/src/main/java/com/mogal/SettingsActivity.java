@@ -77,7 +77,7 @@ public class SettingsActivity extends AppCompatActivity {
             progressDialog.show();
             firebaseAuth.signOut();
             progressDialog.dismiss();
-            UsefulMethods.reloadApp(this, getIntent());
+            UsefulMethods.reloadApp(this, new Intent(this, MainActivity.class));
         }
         else
             Toast.makeText(this, "Already signed out", Toast.LENGTH_SHORT).show();

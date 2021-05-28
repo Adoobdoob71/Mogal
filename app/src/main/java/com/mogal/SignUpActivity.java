@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.mogal.classes.User;
+import com.mogal.utils.UsefulMethods;
 
 import java.util.Date;
 
@@ -74,6 +76,11 @@ public class SignUpActivity extends AppCompatActivity {
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.show();
         final DatabaseReference ref = firebaseDatabase.getReference("users");
+        if (emailTextInput.getText().toString().length() == 0 || passwordTextInput.getText().toString().length() == 0){
+            Toast.makeText(this, "Required fields aren't filled", Toast.LENGTH_SHORT).show();
+            progressDialog.dismiss();
+            return;
+        }
         firebaseAuth
                 .createUserWithEmailAndPassword(emailTextInput.getText().toString().trim(), passwordTextInput.getText().toString().trim())
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -89,15 +96,9 @@ public class SignUpActivity extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()){
-//                                                SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-//                                                SharedPreferences.Editor editor = sharedPreferences.edit();
-//                                                editor.putString("nickname", userProperties.getNickname());
-//                                                editor.putString("uid", userProperties.getUid());
-//                                                editor.putString("profile_picture_url", userProperties.getProfile_picture());
-//                                                editor.apply();
                                                 progressDialog.dismiss();
                                                 Toast.makeText(getApplicationContext(), "Registered successfully!", Toast.LENGTH_SHORT).show();
-                                                finish();
+                                                UsefulMethods.reloadApp(SignUpActivity.this, new Intent(SignUpActivity.this, MainActivity.class));
                                             }
                                             else {
                                                 progressDialog.dismiss();
@@ -109,7 +110,7 @@ public class SignUpActivity extends AppCompatActivity {
                         }
                         else {
                             progressDialog.dismiss();
-                            Toast.makeText(getApplicationContext(), "Are you sure everything's filled?", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Somethig went wrong", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

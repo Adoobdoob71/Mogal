@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -54,7 +55,8 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
 
         ImageView article_picture = convertView.findViewById(R.id.article_item_image_view);
         ImageView poster_profile_picture = convertView.findViewById(R.id.article_item_poster_profile_picture);
-        ImageButton read_more_button = convertView.findViewById(R.id.article_item_read_more);
+
+        CardView read_more_card = convertView.findViewById(R.id.article_item_card_view);
 
         movie_title.setText(article.getName());
         movie_body.setText(article.getBody());
@@ -65,13 +67,13 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
             Picasso.get().load(article.getPicture()).into(article_picture);
 
         loadUserData(article, poster_nickname, poster_profile_picture);
-        handleEvents(read_more_button, poster_nickname, article);
+        handleEvents(read_more_card, poster_nickname, article);
 
         return convertView;
     }
 
-    public void handleEvents(ImageButton read_more_button, TextView nickname, final Article article){
-        read_more_button.setOnClickListener(new View.OnClickListener() {
+    public void handleEvents(CardView read_more_card, TextView nickname, final Article article){
+        read_more_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), ArticleActivity.class);

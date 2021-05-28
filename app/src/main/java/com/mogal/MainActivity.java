@@ -174,7 +174,8 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     userDetails = snapshot.getValue(User.class);
-                    Picasso.get().load(userDetails.getProfile_picture()).into(profilePicture);
+                    if (userDetails.getProfile_picture() != null && userDetails.getProfile_picture().length() != 0)
+                        Picasso.get().load(userDetails.getProfile_picture()).into(profilePicture);
                 }
 
                 @Override

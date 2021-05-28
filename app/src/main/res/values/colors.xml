@@ -16,7 +16,7 @@
     <color name="colorCardLight">#FBFBFB</color>
 
     <!--     dark theme colors    -->
-    <color name="colorTabDark">#1B1B1B</color>
+    <color name="colorTabDark">#1E1E1E</color>
     <color name="colorTextDark">#FFF</color>
     <color name="colorBackgroundDark">#151515</color>
     <color name="colorDividerDark">#252525</color>
