@@ -19,6 +19,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -232,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
         fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
             @Override
             public void onComplete(@NonNull Task<Location> task) {
-                if (task.isSuccessful()){
+                if (task.isSuccessful() && task.getResult() != null){
                     String countryName = UsefulMethods.getCountryName(task.getResult().getLatitude(), task.getResult().getLongitude(), MainActivity.this);
                     loadNearbyArticles(countryName);
                 }

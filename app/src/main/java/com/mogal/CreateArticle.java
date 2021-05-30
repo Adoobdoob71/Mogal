@@ -97,8 +97,8 @@ public class CreateArticle extends AppCompatActivity {
             Article article = new Article(nameEditText.getText().toString(), bodyEditText.getText().toString(), pictureURLEditText.getText().toString(), UID, key, new Date(), country);
 
             if (article.getName().length() == 0 || article.getBody().length() == 0){
-                Toast.makeText(this, "Not all required fields are filled", Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
+                Toast.makeText(this, "Not all required fields are filled", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -143,7 +143,7 @@ public class CreateArticle extends AppCompatActivity {
         fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
             @Override
             public void onComplete(@NonNull Task<Location> task) {
-                if (task.isSuccessful()){
+                if (task.isSuccessful() && task.getResult() != null){
                     String countryName = UsefulMethods.getCountryName(task.getResult().getLatitude(), task.getResult().getLongitude(), CreateArticle.this);
                     uploadArticle(countryName);
                 }
