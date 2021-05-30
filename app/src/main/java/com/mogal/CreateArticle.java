@@ -148,7 +148,7 @@ public class CreateArticle extends AppCompatActivity {
                     uploadArticle(countryName);
                 }
                 else
-                    Toast.makeText(CreateArticle.this, "Couldn't get your location", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateArticle.this, "Couldn't get your location, try opening Google Maps", Toast.LENGTH_SHORT).show();
             }
         });
     }

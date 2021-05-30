@@ -10,6 +10,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -237,8 +238,9 @@ public class MainActivity extends AppCompatActivity {
                     String countryName = UsefulMethods.getCountryName(task.getResult().getLatitude(), task.getResult().getLongitude(), MainActivity.this);
                     loadNearbyArticles(countryName);
                 }
-                else
-                    Toast.makeText(MainActivity.this, "Couldn't get your location", Toast.LENGTH_SHORT).show();
+                else{
+                    Toast.makeText(MainActivity.this, "Couldn't get your location, try opening Google Maps", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
